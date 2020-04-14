@@ -17,20 +17,21 @@ export default function App() {
       setRepositories(response.data);
       // console.log(response.data);
     });
-  });
+  }, []);
   async function handleLikeRepository(id) {
     const response = await api.post(`/repositories/${id}/like`);
 
     const likedRepository = response.data;
+    console.log(likedRepository);
 
-    // const repositoriesUpdated = repositories.map((repository) => {
-    //   if (repository.id === id) {
-    //     return likedRepository;
-    //   } else {
-    //     repository;
-    //   }
-    // });
-    // setRepositories(repositoriesUpdated);
+    const repositoriesUpdated = repositories.map((repository) => {
+      if (repository.id === id) {
+        return likedRepository;
+      } else {
+        return repository;
+      }
+    });
+    setRepositories(repositoriesUpdated);
   }
 
   return (
@@ -72,9 +73,7 @@ export default function App() {
               </TouchableOpacity>
             </View>
           )}
-        >
-          })}
-        </FlatList>
+        />
       </SafeAreaView>
     </>
   );
